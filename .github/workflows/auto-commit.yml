@@ -1,0 +1,27 @@
+name: Auto Commit Changes
+
+on:
+  push:
+    paths:
+      - '**/*'
+
+jobs:
+  auto-commit:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      shell: bash
+
+    - name: Commit and push changes
+      run: |
+        git add .
+        git commit -m "Auto commit changes"
+        git push
+      shell: bash
